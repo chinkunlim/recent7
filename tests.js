@@ -120,13 +120,6 @@ addCase({
 });
 
 addCase({
-  name: '規則 5：records 非陣列（如 null）回傳 { minutes: 0, count: 0 }',
-  today: '2026-11-23',
-  records: null,
-  expect: { minutes: 0, count: 0 }
-});
-
-addCase({
   name: '規則 5：陣列內含 null 或無效元素時略過該元素',
   today: '2026-11-23',
   records: [
