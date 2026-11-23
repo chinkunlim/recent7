@@ -62,3 +62,8 @@
 1. 用一般的 `function recent7(records, today) { ... }`。不要用 `export`、`import`、`require`、`module.exports`，測試頁會讀不到。
 2. 不要改 `tests.html`，也不要新增其他檔案。
 3. 一次只做被交代的那個檔。寫測試的時候不寫功能；寫功能的時候不改測試。
+
+## 線上版整合（W11 學習紀錄網站）
+
+- 本專案的 `recent7.js` 已整合至 W11 的學習紀錄網站（GitHub：`https://github.com/chinkunlim/learning-log`）。
+- 線上部署網址：`https://learning-log.projectsynapse.workers.dev/`，頁面上方的「最近 7 天：共 X 分鐘、Y 筆（Z 天）」即由 `recent7(records, today)` 計算。
