@@ -6,7 +6,7 @@
 
 function recent7(records, today) {
   if (!Array.isArray(records)) {
-    return { minutes: 0, count: 0 };
+    return { minutes: 0, count: 0, days: 0 };
   }
 
   const [year, month, day] = today.split('-').map(Number);
@@ -16,6 +16,7 @@ function recent7(records, today) {
 
   let totalMinutes = 0;
   let count = 0;
+  const activeDays = new Set();
 
   for (const record of records) {
     if (!record || typeof record !== 'object') {
@@ -34,7 +35,8 @@ function recent7(records, today) {
 
     totalMinutes += Number.isFinite(mins) ? mins : 0;
     count += 1;
+    activeDays.add(logDate);
   }
 
-  return { minutes: totalMinutes, count };
+  return { minutes: totalMinutes, count, days: activeDays.size };
 }
