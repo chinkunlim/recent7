@@ -5,5 +5,36 @@
 // 格式說明在 README.md；要怎麼算看 rules.md。
 
 function recent7(records, today) {
-  throw new Error('還沒做');
+  if (!Array.isArray(records)) {
+    return { minutes: 0, count: 0 };
+  }
+
+  const [year, month, day] = today.split('-').map(Number);
+  const startStr = new Date(Date.UTC(year, month - 1, day - 6))
+    .toISOString()
+    .slice(0, 10);
+
+  let totalMinutes = 0;
+  let count = 0;
+
+  for (const record of records) {
+    if (!record || typeof record !== 'object') {
+      continue;
+    }
+
+    const logDate = record.log_date;
+    if (typeof logDate !== 'string' || logDate < startStr || logDate > today) {
+      continue;
+    }
+
+    const mins =
+      record.minutes === null || record.minutes === undefined
+        ? 0
+        : Number(record.minutes);
+
+    totalMinutes += Number.isFinite(mins) ? mins : 0;
+    count += 1;
+  }
+
+  return { minutes: totalMinutes, count };
 }
