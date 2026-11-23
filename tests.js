@@ -136,3 +136,44 @@ addCase({
   ],
   expect: { minutes: 25, count: 1 }
 });
+
+addCase({
+  name: '規則 6：不同日期的紀錄各自計入 days',
+  today: '2026-11-23',
+  records: [
+    { log_date: '2026-11-23', minutes: 30 },
+    { log_date: '2026-11-20', minutes: 15 },
+    { log_date: '2026-11-17', minutes: 20 }
+  ],
+  expect: { minutes: 65, count: 3, days: 3 }
+});
+
+addCase({
+  name: '規則 6：同一天有多筆紀錄只算 1 天',
+  today: '2026-11-23',
+  records: [
+    { log_date: '2026-11-23', minutes: 30 },
+    { log_date: '2026-11-23', minutes: 10 },
+    { log_date: '2026-11-17', minutes: 20 }
+  ],
+  expect: { minutes: 60, count: 3, days: 2 }
+});
+
+addCase({
+  name: '規則 6：minutes 為 null 的紀錄在 7 天內也算該天有紀錄',
+  today: '2026-11-23',
+  records: [
+    { log_date: '2026-11-23', minutes: null }
+  ],
+  expect: { minutes: 0, count: 1, days: 1 }
+});
+
+addCase({
+  name: '規則 6：超出 7 天或未來日期不計入 days，無符合紀錄時 days 為 0',
+  today: '2026-11-23',
+  records: [
+    { log_date: '2026-11-16', minutes: 99 },
+    { log_date: '2026-11-24', minutes: 50 }
+  ],
+  expect: { minutes: 0, count: 0, days: 0 }
+});
